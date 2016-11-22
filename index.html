@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Baker Cat</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <style>
+        body {
+            background-color: #FEF2E6;
+            text-align: center;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        a {
+            color: #337ab7;
+            text-decoration: none;
+        }
+
+        a:hover, a:focus {
+            color: #23527c;
+            text-decoration: underline;
+        }
+    </style>
+    <script>
+        var loop = null;
+        var slow = false;
+
+        var ctx = new AudioContext();
+        var req1 = new XMLHttpRequest();
+        req1.open('GET', 'start.mp3', true);
+        req1.responseType = 'arraybuffer';
+        req1.onload = function () {
+            ctx.decodeAudioData(req1.response, function (b) {
+                var src = ctx.createBufferSource();
+                src.buffer = b;
+                src.connect(ctx.destination);
+                src.start(0);
+                src.onended = function () {
+                    if (loop == null) {
+                        slow = true;
+                    } else {
+                        loop.start(0);
+                    }
+                };
+            });
+        };
+        req1.send();
+
+        var req2 = new XMLHttpRequest();
+        req2.open('GET', 'loop.mp3', true);
+        req2.responseType = 'arraybuffer';
+        req2.onload = function () {
+            ctx.decodeAudioData(req2.response, function (b) {
+                var src = ctx.createBufferSource();
+                src.buffer = b;
+                src.connect(ctx.destination);
+                src.loop = true;
+                loop = src;
+                if (slow) {
+                    src.start(0);
+                }
+            });
+        };
+        req2.send();
+    </script>
+</head>
+<body>
+<img src="bakercat.gif">
+<div>
+    Image: <a href="https://pusheen.com">Pusheen</a> | Music:
+    <a href="https://itunes.apple.com/us/album/buckycubes-swing-baker-cat/id578276619">Buckycubes "Swing"</a> by
+    <a href="http://www.drewskinnersound.com/">Drew Skinner</a>
+</div>
+</body>
+</html>
