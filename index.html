@@ -29,7 +29,10 @@
         }
     </style>
     <script>
-        var secondsPlayed = parseInt(window.localStorage.secondsPlayed || 0);
+        var secondsPlayed = parseInt(window.localStorage.secondsPlayed);
+        if (isNaN(secondsPlayed)) {
+            secondsPlayed = 0;
+        }
 
         function onload() {
             document.getElementById('timer').innerText = durationStr(secondsPlayed);
