@@ -69,15 +69,49 @@
             });
         };
         req2.send();
+
+        var secondsPlayed = parseInt(window.localStorage.secondsPlayed | 0);
+
+        function onLoad() {
+            document.getElementById('timer').innerText = durationStr(secondsPlayed);
+            var last = Date.now();
+            window.setInterval(function () {
+                var now = Date.now();
+                secondsPlayed += (now - last) / 1000;
+                last = now;
+                document.getElementById('timer').innerText = durationStr(secondsPlayed);
+                window.localStorage.secondsPlayed = secondsPlayed;
+            }, 1000);
+        }
+
+        function durationStr(seconds) {
+            var n = Math.floor(seconds);
+            var str = n % 60 + 's';
+            n = Math.floor(n / 60);
+            if (n == 0) return str;
+            str = n % 60 + 'm ' + str;
+            n = Math.floor(n / 60);
+            if (n == 0) return str;
+            str = n % 24 + 'h ' + str;
+            n = Math.floor(n / 24);
+            if (n == 0) return str;
+            return n + 'd ' + str;
+        }
     </script>
 </head>
-<body>
+<body onload="onLoad()">
 <img src="bakercat.gif">
-<div>
-    Image: <a href="http://www.pusheen.com/">Pusheen</a> | Music:
-    <a href="https://itunes.apple.com/us/album/buckycubes-swing-baker-cat/id578276619">Buckycubes "Swing"</a> by
-    <a href="http://www.drewskinnersound.com/">Drew Skinner</a>
-    <footer>Made by <a href="https://prplz.io">prplz</a> | <a href="https://github.com/prplz/baker.cat">GitHub</a></footer>
-</div>
+<h3>
+    You have been baking with Pusheen for:
+    <br/>
+    <span id="timer">0s</span>
+</h3>
+Image: <a href="http://www.pusheen.com/">Pusheen</a>
+<br/>
+Music: <a href="https://itunes.apple.com/us/album/buckycubes-swing-baker-cat/id578276619">Buckycubes "Swing"</a> by
+<a href="http://www.drewskinnersound.com/">Drew Skinner</a>
+<footer>
+    Made by <a href="https://prplz.io">prplz</a> | <a href="https://github.com/prplz/baker.cat">GitHub</a>
+</footer>
 </body>
 </html>
