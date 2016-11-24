@@ -29,6 +29,36 @@
         }
     </style>
     <script>
+        var secondsPlayed = parseInt(window.localStorage.secondsPlayed || 0);
+
+        function onload() {
+            document.getElementById('timer').innerText = durationStr(secondsPlayed);
+            var last = Date.now();
+            window.setInterval(function () {
+                var now = Date.now();
+                secondsPlayed += (now - last) / 1000;
+                last = now;
+                document.getElementById('timer').innerText = durationStr(secondsPlayed);
+                window.localStorage.secondsPlayed = secondsPlayed;
+            }, 1000);
+        }
+
+        window.addEventListener('load', onload, false);
+
+        function durationStr(seconds) {
+            var n = Math.floor(seconds);
+            var str = n % 60 + 's';
+            n = Math.floor(n / 60);
+            if (n == 0) return str;
+            str = n % 60 + 'm ' + str;
+            n = Math.floor(n / 60);
+            if (n == 0) return str;
+            str = n % 24 + 'h ' + str;
+            n = Math.floor(n / 24);
+            if (n == 0) return str;
+            return n + 'd ' + str;
+        }
+
         var loop = null;
         var slow = false;
 
@@ -69,37 +99,9 @@
             });
         };
         req2.send();
-
-        var secondsPlayed = parseInt(window.localStorage.secondsPlayed | 0);
-
-        function onLoad() {
-            document.getElementById('timer').innerText = durationStr(secondsPlayed);
-            var last = Date.now();
-            window.setInterval(function () {
-                var now = Date.now();
-                secondsPlayed += (now - last) / 1000;
-                last = now;
-                document.getElementById('timer').innerText = durationStr(secondsPlayed);
-                window.localStorage.secondsPlayed = secondsPlayed;
-            }, 1000);
-        }
-
-        function durationStr(seconds) {
-            var n = Math.floor(seconds);
-            var str = n % 60 + 's';
-            n = Math.floor(n / 60);
-            if (n == 0) return str;
-            str = n % 60 + 'm ' + str;
-            n = Math.floor(n / 60);
-            if (n == 0) return str;
-            str = n % 24 + 'h ' + str;
-            n = Math.floor(n / 24);
-            if (n == 0) return str;
-            return n + 'd ' + str;
-        }
     </script>
 </head>
-<body onload="onLoad()">
+<body>
 <img src="bakercat.gif">
 <h3>
     You have been baking with Pusheen for:
