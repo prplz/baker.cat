@@ -102,43 +102,48 @@
         var loop = null;
         var slow = false;
 
-        var ctx = new AudioContext();
-        var req1 = new XMLHttpRequest();
-        req1.open('GET', 'start.mp3', true);
-        req1.responseType = 'arraybuffer';
-        req1.onload = function () {
-            ctx.decodeAudioData(req1.response, function (b) {
-                var src = ctx.createBufferSource();
-                src.buffer = b;
-                src.connect(ctx.destination);
-                src.start(0);
-                src.onended = function () {
-                    if (loop == null) {
-                        slow = true;
-                    } else {
-                        loop.start(0);
-                    }
-                };
-            });
-        };
-        req1.send();
-
-        var req2 = new XMLHttpRequest();
-        req2.open('GET', 'loop.mp3', true);
-        req2.responseType = 'arraybuffer';
-        req2.onload = function () {
-            ctx.decodeAudioData(req2.response, function (b) {
-                var src = ctx.createBufferSource();
-                src.buffer = b;
-                src.connect(ctx.destination);
-                src.loop = true;
-                loop = src;
-                if (slow) {
+        var AudioContext = window.AudioContext || window.webkitAudioContext || false;
+        if (AudioContext) {
+            var ctx = new AudioContext();
+            var req1 = new XMLHttpRequest();
+            req1.open('GET', 'start.mp3', true);
+            req1.responseType = 'arraybuffer';
+            req1.onload = function () {
+                ctx.decodeAudioData(req1.response, function (b) {
+                    var src = ctx.createBufferSource();
+                    src.buffer = b;
+                    src.connect(ctx.destination);
                     src.start(0);
-                }
-            });
-        };
-        req2.send();
+                    src.onended = function () {
+                        if (loop == null) {
+                            slow = true;
+                        } else {
+                            loop.start(0);
+                        }
+                    };
+                });
+            };
+            req1.send();
+
+            var req2 = new XMLHttpRequest();
+            req2.open('GET', 'loop.mp3', true);
+            req2.responseType = 'arraybuffer';
+            req2.onload = function () {
+                ctx.decodeAudioData(req2.response, function (b) {
+                    var src = ctx.createBufferSource();
+                    src.buffer = b;
+                    src.connect(ctx.destination);
+                    src.loop = true;
+                    loop = src;
+                    if (slow) {
+                        src.start(0);
+                    }
+                });
+            };
+            req2.send();
+        } else {
+            window.location.href = "https://youtu.be/-ZOiX6cIT8o";
+        }
     </script>
 </head>
 <body>
