@@ -105,6 +105,9 @@
         var AudioContext = window.AudioContext || window.webkitAudioContext || false;
         if (AudioContext) {
             var ctx = new AudioContext();
+            var gain = ctx.createGain();
+            gain.connect(ctx.destination);
+            gain.gain.value = 0.6;
             var req1 = new XMLHttpRequest();
             req1.open('GET', 'start.mp3', true);
             req1.responseType = 'arraybuffer';
@@ -112,7 +115,7 @@
                 ctx.decodeAudioData(req1.response, function (b) {
                     var src = ctx.createBufferSource();
                     src.buffer = b;
-                    src.connect(ctx.destination);
+                    src.connect(gain);
                     src.start(0);
                     src.onended = function () {
                         if (loop == null) {
@@ -132,7 +135,7 @@
                 ctx.decodeAudioData(req2.response, function (b) {
                     var src = ctx.createBufferSource();
                     src.buffer = b;
-                    src.connect(ctx.destination);
+                    src.connect(gain);
                     src.loop = true;
                     loop = src;
                     if (slow) {
