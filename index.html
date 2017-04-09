@@ -72,13 +72,13 @@
         }
 
         function onload() {
-            document.getElementById('timer').innerText = durationStr(secondsPlayed);
+            document.getElementById('timer').innerHTML = durationStr(secondsPlayed);
             var last = Date.now();
             window.setInterval(function () {
                 var now = Date.now();
                 secondsPlayed += (now - last) / 1000;
                 last = now;
-                document.getElementById('timer').innerText = durationStr(secondsPlayed);
+                document.getElementById('timer').innerHTML = durationStr(secondsPlayed);
                 window.localStorage.secondsPlayed = secondsPlayed;
             }, 1000);
         }
