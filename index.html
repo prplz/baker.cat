@@ -89,13 +89,13 @@
             var n = Math.floor(seconds);
             var str = n % 60 + 's';
             n = Math.floor(n / 60);
-            if (n == 0) return str;
+            if (n === 0) return str;
             str = n % 60 + 'm ' + str;
             n = Math.floor(n / 60);
-            if (n == 0) return str;
+            if (n === 0) return str;
             str = n % 24 + 'h ' + str;
             n = Math.floor(n / 24);
-            if (n == 0) return str;
+            if (n === 0) return str;
             return n + 'd ' + str;
         }
 
@@ -118,7 +118,7 @@
                     src.connect(gain);
                     src.start(0);
                     src.onended = function () {
-                        if (loop == null) {
+                        if (loop === null) {
                             slow = true;
                         } else {
                             loop.start(0);
