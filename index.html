@@ -107,7 +107,7 @@
             var ctx = new AudioContext();
             var gain = ctx.createGain();
             gain.connect(ctx.destination);
-            gain.gain.value = 0.6;
+            gain.gain.value = 0.3;
             var req1 = new XMLHttpRequest();
             req1.open('GET', 'start.mp3', true);
             req1.responseType = 'arraybuffer';
