@@ -49,6 +49,22 @@
             font-family: 'Roboto', sans-serif;
         }
 
+        #container {
+            margin-top: -100px;
+            position: fixed;
+            top: 50%;
+            left :50%;
+            cursor: default;
+            transform: translate(-50%,-50%);
+            text-align: center;
+            user-select: none;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
         a {
             color: #337ab7;
             text-decoration: none;
@@ -150,18 +166,20 @@
     </script>
 </head>
 <body>
-<img src="bakercat.gif">
-<h3>
-    You have been baking with Pusheen for:
-    <br/>
-    <span id="timer">0s</span>
-</h3>
-Image: <a href="http://www.pusheen.com/">Pusheen</a>
-<br/>
-Music: <a href="https://itunes.apple.com/us/album/buckycubes-swing-baker-cat/id578276619">Buckycubes "Swing"</a> by
-<a href="http://www.drewskinnersound.com/">Drew Skinner</a>
-<footer>
-    Made by <a href="https://prplz.io">prplz</a> | <a href="https://github.com/prplz/baker.cat">GitHub</a>
-</footer>
+    <div id="container">
+        <img onmousedown="return false" src="bakercat.gif">
+        <h3>
+            You have been baking with Pusheen for:
+            <br/>
+            <span id="timer">0s</span>
+        </h3>
+        Image: <a href="http://www.pusheen.com/">Pusheen</a>
+        <br/>
+        Music: <a href="https://itunes.apple.com/us/album/buckycubes-swing-baker-cat/id578276619">Buckycubes "Swing"</a> by
+        <a href="http://www.drewskinnersound.com/">Drew Skinner</a>
+    </div>
+    <footer>
+        Made by <a href="https://prplz.io">prplz</a> | <a href="https://github.com/prplz/baker.cat">GitHub</a>
+    </footer>
 </body>
 </html>
