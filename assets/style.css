@@ -1,0 +1,21 @@
+body {
+    background-color: #FEF2E6;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+}
+
+a {
+    color: #337ab7;
+    text-decoration: none;
+}
+
+a:hover, a:focus {
+    color: #23527c;
+    text-decoration: underline;
+}
+
+footer {
+    position: absolute;
+    bottom: 5px;
+    width: 99%;
+}
